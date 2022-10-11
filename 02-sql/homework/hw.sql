@@ -38,5 +38,75 @@ SELECT first_name, last_name
 4 - Fame Name Game - Buscá los 10 nombres y apellidos más populares entre los actores.
     Cuantos actores tienen cada uno de esos nombres y apellidos?
 
+SELECT 
+    first_name,
+    COUNT(*) AS "Count"
+FROM actors
+GROUP BY 
+    first_name
+ORDER BY Count(*) DESC
+LIMIT 5; OK
+
+SELECT    
+    last_name,
+    COUNT(*) AS "Count"
+FROM actors
+GROUP BY 
+    last_name
+ORDER BY Count(*) DESC
+LIMIT 5; OK
+
+SELECT 
+    first_name,
+    COUNT(*) AS "Count"
+FROM actors
+GROUP BY 
+    first_name
+UNION
+SELECT    
+    last_name,
+    COUNT(*) AS "Count"
+FROM actors
+GROUP BY 
+    last_name
+ORDER BY Count DESC
+LIMIT 10; HW
+
+SELECT first_name, NAME FROM
+    (
+    SELECT 
+        first_name,
+        last_name,
+        COUNT(first_name) AS "NAME"
+    FROM actors
+    GROUP BY
+        first_name
+    LIMIT 5    
+    )
+ GROUP BY
+    first_name
+ORDER BY COUNT(NAME) DESC
+LIMIT 10;
+
+
+
+
+
+SELECT    
+    last_name,
+    COUNT(*) AS "Count"
+FROM actors
+GROUP BY 
+    last_name
+ORDER BY Count DESC
+LIMIT 10;
+
+
+
+
+
+
+
+5 - Prolific - Listá el top 100 de actores más activos junto con el número de roles que haya realizado.
 
 
