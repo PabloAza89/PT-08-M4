@@ -1,5 +1,11 @@
 /* EXAMPLE = SELECT name, year FROM movies WHERE year = 1902 AND rank > 5; */
 
+OPEN IN PROMPT:
+cd C:/demo-db/sqlite
+sqlite3
+.open C:/demo-db/imdb-large.sqlite3.db
+
+
 tables:
 
 actors
@@ -90,13 +96,13 @@ limit 10; CR
 5 - Prolific
 Listá el top 100 de actores más activos junto con el número de roles que haya realizado.
 
-select a.first_name, a.last_name
+select a.first_name, a.last_name,
 count(*) as Total
 from actors as a
 join roles as r on a.id = r.actor_id
 group by a.id
 order by Total desc
-limit 100; CR
+limit 10; CR
 
 6 - Bottom of the Barrel
 Cuantas películas tiene IMDB por género? Ordená la lista por el género menos popular.
