@@ -5,6 +5,14 @@ cd C:/demo-db/sqlite
 sqlite3
 .open C:/demo-db/imdb-large.sqlite3.db
 
+cd C:\demo-juan-sql\sqlite\
+cd C:/demo-juan-sql/sqlite/
+sqlite3
+.open C:\demo-juan-db\imdb-large.sqlite3.db
+.open C:/demo-juan-db/imdb-large.sqlite3.db
+.open imdb-large.sqlite3.db
+
+
 
 tables:
 
