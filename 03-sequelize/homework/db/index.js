@@ -45,9 +45,36 @@ const Character = db.define('Character', {
   }
 );
 
- /*  sequelize.define('Role', {
-    sequelize.define('Ability', { */
+const Ability = db.define('Ability', {
+    name: {
+    type: DataTypes.STRING,
+    unique: true
+    },
+    description: {
+    type: DataTypes.TEXT
+    },
+    mana_cost: {
+      type: DataTypes.FLOAT,
+      unique: true
+    },  
+  }, {
+    timestamps: false
+  }
+);
 
+const Role = db.define('Role', {
+  name: {
+  type: DataTypes.STRING,
+  unique: true
+  },
+  description: {
+  type: DataTypes.STRING
+  }, 
+}, {
+  timestamps: false
+}
+);
+ 
 
 modelCharacter(db);
 modelAbility(db);
