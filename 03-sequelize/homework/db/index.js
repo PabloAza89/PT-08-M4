@@ -11,17 +11,15 @@ const db = new Sequelize('postgres://postgres:aza1410@localhost:5432/henry_seque
 .then(() => {console.log("DB conectada")})
 .catch ((e) => {console.log("Tenes este error -->", e)}) */
 
-
-
-const Character = db.define('Character', {
+/* const Character =  */db.define('Character', {
     code: {
-    allowNull: false,
-    type: DataTypes.STRING(5),
-    primaryKey: true  
+      allowNull: false,
+      type: DataTypes.STRING(5),
+      primaryKey: true  
     },
     name: {
-    type: DataTypes.STRING,
-    unique: true,
+      type: DataTypes.STRING,
+      unique: true,
     },
     age: {
       type: DataTypes.INTEGER
@@ -38,20 +36,20 @@ const Character = db.define('Character', {
     },
     date_added: {
       type: DataTypes.DATEONLY,
-      defaultValue: DataTypes.DATEONLY
+      defaultValue: DataTypes.NOW
     }
   }, {
     timestamps: false
   }
 );
 
-const Ability = db.define('Ability', {
+/* const Ability =  */db.define('Ability', {
     name: {
-    type: DataTypes.STRING,
-    unique: true
+      type: DataTypes.STRING,
+      unique: true
     },
     description: {
-    type: DataTypes.TEXT
+      type: DataTypes.TEXT
     },
     mana_cost: {
       type: DataTypes.FLOAT,
@@ -62,13 +60,13 @@ const Ability = db.define('Ability', {
   }
 );
 
-const Role = db.define('Role', {
+/* const Role =  */db.define('Role', {
   name: {
-  type: DataTypes.STRING,
-  unique: true
+    type: DataTypes.STRING,
+    unique: true
   },
   description: {
-  type: DataTypes.STRING
+    type: DataTypes.STRING
   }, 
 }, {
   timestamps: false
