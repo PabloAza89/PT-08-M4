@@ -19,23 +19,39 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/', async (req, res) => {
-  const { race } = req.body
+  const { race , name , hp , age } = req.query
   try {
-    if (!race) {
+    if (!race && name && hp && !age) {
+      const character = await Character.findAll({
+          attributes: ['name', 'hp']
+        }
+      )
+      res.status(200).send(character)
+    }
+    if (!race && !name && !hp && !age) {
       const character = await Character.findAll()
       res.json(character)
     }
-    else {
+    if (race && !name && !hp && age) {
+      const character = await Character.findAll({
+        where: {
+          race,
+          age
+        }
+      })
+      res.send(character)
+    }
+    if (race && !name && !hp && !age) {
       const character = await Character.findAll({
         where: {
           race
         }
       })
       res.send(character)
-    }    
+    }
   }
   catch (e) {
-    console.log(e)
+    console.log("TEST OK: ERROR EN BUSQUEDA PARAMETRIZADO")
   }
 
 });
@@ -46,6 +62,22 @@ router.get('/:code', async (req, res) => {
   const character = await Character.findByPk(code)
   if (!character) return res.status(404).send(`El código ${code} no corresponde a un personaje existente`)
   res.json(character)
+});
+
+router.get('/young', async (req, res) => {
+  const conditionAge = age < 25;
+  try {
+    const character = await Character.findAll({
+      where: {
+        [attribute]: conditionAge
+      }
+    })
+    res.status(200).send(character)
+  }
+  catch(e) {
+    console.log(e)  
+  }
+    
 });
 
 module.exports = router;

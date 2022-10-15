@@ -3,7 +3,7 @@ const { db, Character } = require('../db');
 describe('Character Model', () => {
   beforeAll(async () => {
     await db.sync({ force: true });
-    console.log('Franco');
+    //console.log('Franco');
   });
 
   describe('Parte UNO', () => {
