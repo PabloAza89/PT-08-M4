@@ -1,6 +1,6 @@
 const request = require('supertest');
 const app = require('../server.js');
-const { db, Character } = require('../db');
+const { db, Character , Ability } = require('../db');
 
 describe('Character Routes', () => {
   beforeAll(async () => {
@@ -24,7 +24,7 @@ describe('Character Routes', () => {
         name: 'Franco',
         hp: 100.0,
         mana: 120.0,
-        age: null,
+        age: null + ' years old',
         /* date_added: new Date().toISOString().split('T')[0], */
         /* date_added: new Date().toLocaleString("af-ZA", {timeZone:"America/Argentina/Buenos_Aires"}).split('')[0], */
         /* date_added: new Date().toLocaleString("af-ZA", {timeZone:"America/Argentina/Buenos_Aires"}).replace(/\//g,'-').split('-').reverse().join('-'), */
@@ -69,9 +69,9 @@ describe('Character Routes', () => {
           /* {code: 'ONE', name: 'First', hp: 90.0, mana: 150.0, age: 27, date_added: new Date().toISOString().split('T')[0], race: 'Human'},
           {code: 'TWO', name: 'Second', hp: 135.0, mana: 40.0, age: 20, date_added: new Date().toISOString().split('T')[0], race: 'Machine'},
           {code: 'THREE', name: 'Third', hp: 110.0, mana: 110.0, age: 23, date_added: new Date().toISOString().split('T')[0], race: 'Human'} */
-          {code: 'ONE', name: 'First', hp: 90.0, mana: 150.0, age: 27, date_added: new Date().toLocaleString({timeZone:"America/Argentina/Buenos_Aires"}).split(' ')[0].split('/').reverse().join('-'), race: 'Human'},
-          {code: 'TWO', name: 'Second', hp: 135.0, mana: 40.0, age: 20, date_added: new Date().toLocaleString({timeZone:"America/Argentina/Buenos_Aires"}).split(' ')[0].split('/').reverse().join('-'), race: 'Machine'},
-          {code: 'THREE', name: 'Third', hp: 110.0, mana: 110.0, age: 23, date_added: new Date().toLocaleString({timeZone:"America/Argentina/Buenos_Aires"}).split(' ')[0].split('/').reverse().join('-'), race: 'Human'}
+          {code: 'ONE', name: 'First', hp: 90.0, mana: 150.0, age: 27 + ' years old', date_added: new Date().toLocaleString({timeZone:"America/Argentina/Buenos_Aires"}).split(' ')[0].split('/').reverse().join('-'), race: 'Human'},
+          {code: 'TWO', name: 'Second', hp: 135.0, mana: 40.0, age: 20 + ' years old', date_added: new Date().toLocaleString({timeZone:"America/Argentina/Buenos_Aires"}).split(' ')[0].split('/').reverse().join('-'), race: 'Machine'},
+          {code: 'THREE', name: 'Third', hp: 110.0, mana: 110.0, age: 23 + ' years old', date_added: new Date().toLocaleString({timeZone:"America/Argentina/Buenos_Aires"}).split(' ')[0].split('/').reverse().join('-'), race: 'Human'}
         ])
       })
   
@@ -105,7 +105,7 @@ describe('Character Routes', () => {
         expect(res.statusCode).toBe(200);
         expect(res.body).toEqual(
           /* {code: 'TWO', name: 'Second', hp: 135.0, mana: 40.0, age: 20, date_added: new Date().toISOString().split('T')[0], race: 'Machine'} */
-          {code: 'TWO', name: 'Second', hp: 135.0, mana: 40.0, age: 20, date_added: new Date().toLocaleString({timeZone:"America/Argentina/Buenos_Aires"}).split(' ')[0].split('/').reverse().join('-'), race: 'Machine'}
+          {code: 'TWO', name: 'Second', hp: 135.0, mana: 40.0, age: 20 + ' years old', date_added: new Date().toLocaleString({timeZone:"America/Argentina/Buenos_Aires"}).split(' ')[0].split('/').reverse().join('-'), race: 'Machine'}
         )
       })
     })
@@ -116,7 +116,7 @@ describe('Character Routes', () => {
         const res = await request(app).get('/character?race=Human&age=27');
         expect(res.statusCode).toBe(200);
         expect(res.body).toEqual([
-          expect.objectContaining({code: 'ONE', name: 'First', hp: 90.0, race: 'Human', age: 27})
+          expect.objectContaining({code: 'ONE', name: 'First', hp: 90.0, race: 'Human', age: 27 + ' years old'})
         ])
       })
   
@@ -124,8 +124,8 @@ describe('Character Routes', () => {
         const res = await request(app).get('/character/young');
         expect(res.statusCode).toBe(200);
         expect(res.body).toEqual([
-          expect.objectContaining({code: 'TWO', name: 'Second', hp: 135.0, race: 'Machine', age: 20}),
-          expect.objectContaining({code: 'THREE', name: 'Third', hp: 110.0, race: 'Human', age: 23}),
+          expect.objectContaining({code: 'TWO', name: 'Second', hp: 135.0, race: 'Machine', age: 20 + ' years old'}),
+          expect.objectContaining({code: 'THREE', name: 'Third', hp: 110.0, race: 'Human', age: 23 + ' years old'}),
         ])
       })
   
@@ -136,22 +136,22 @@ describe('Character Routes', () => {
         await Promise.all([five, six, seven]);
         const res = await request(app).put('/character/age?value=40');
         const characters = await Character.findAll();
-        const with40years = characters.filter(c => c.age === 40);
+        const with40years = characters.filter(c => c.age === 40 + ' years old');
         expect(with40years).toEqual([
-          expect.objectContaining({code: 'FIVE', age: 40}),
-          expect.objectContaining({code: 'SEVEN', age: 40})
+          expect.objectContaining({code: 'FIVE', age: 40 + ' years old'}),
+          expect.objectContaining({code: 'SEVEN', age: 40 + ' years old'})
         ])
         expect(res.text).toBe('Personajes actualizados');
       })
   
       it('should return the year joined with the phrase \'years old\'', async () => {
-        const res = await request(app).get('/character/age');
+        /* const res = await request(app).get('/character/age');
         const characterOne = await Character.findByPk('ONE');
-        expect(res.text).toBe(`${characterOne.age} years old`);
+        expect(res.text).toBe(`${characterOne.age} years old`); */
 
-        /* ORIGINAL:
+        //ORIGINAL:
         const characterOne = await Character.findByPk('ONE');
-        expect(characterOne.age).toBe('27 years old'); */
+        expect(characterOne.age).toBe('27 years old');
       })
   
       it('should add the abilities to the character', async () => {

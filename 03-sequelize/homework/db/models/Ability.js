@@ -14,7 +14,16 @@ module.exports = sequelize => {
       type: DataTypes.FLOAT,
       allowNull: false,
       unique: 'composite_unique'
-    },  
+    },
+    CharacterCode: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        return {name: `${this.name}`, mana_cost: `${this.mana_cost}`};
+      },
+      set() {
+        throw new Error('Do not try to set the `fullName` value!');
+      }
+    }
   }, {
     timestamps: false
   }

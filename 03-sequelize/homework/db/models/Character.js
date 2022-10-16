@@ -13,10 +13,10 @@ module.exports = sequelize => {
     },
     age: {
       type: DataTypes.INTEGER,
-      /* get() {
+      get() {
         // return this.skill + ' points'; // Wrong!
         return this.getDataValue('age') + ' years old';
-      } */
+      }
     },
     race: {
       type: DataTypes.ENUM('Human', 'Elf', 'Machine', 'Demon', 'Animal', 'Other'),

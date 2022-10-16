@@ -12,9 +12,19 @@ const db = new Sequelize('postgres://postgres:aza1410@localhost:5432/henry_seque
 .catch ((e) => {console.log("Tenes este error -->", e)}) */
 
 
+
 modelCharacter(db);
 modelAbility(db);
 modelRole(db);
+
+// added
+
+/* const { Character , Ability } = db.models;
+
+Character.hasMany(Ability);
+Ability.belongsTo(Character); */
+
+// added
 
 module.exports = {
   ...db.models,
