@@ -75,6 +75,20 @@ router.get('/young', async (req, res) => {
     
 });
 
+router.get('/age', async (req, res) => {
+  //console.log("REQUEST", req)
+  
+  try {
+    const character = await Character.findAll()
+    res.status(200).send(character[0].age.toString() + " years old")
+  }
+  catch(e) {
+    console.log("ERROR DE /AGE", e)  
+  }
+    
+});
+
+
 router.get('/:code', async (req, res) => {
   const { code } = req.params
   const character = await Character.findByPk(code)

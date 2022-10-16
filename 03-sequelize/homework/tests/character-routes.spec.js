@@ -145,8 +145,13 @@ describe('Character Routes', () => {
       })
   
       it('should return the year joined with the phrase \'years old\'', async () => {
+        const res = await request(app).get('/character/age');
         const characterOne = await Character.findByPk('ONE');
-        expect(characterOne.age).toBe('27 years old');
+        expect(res.text).toBe(`${characterOne.age} years old`);
+
+        /* ORIGINAL:
+        const characterOne = await Character.findByPk('ONE');
+        expect(characterOne.age).toBe('27 years old'); */
       })
   
       it('should add the abilities to the character', async () => {
