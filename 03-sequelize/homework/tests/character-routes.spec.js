@@ -25,7 +25,10 @@ describe('Character Routes', () => {
         hp: 100.0,
         mana: 120.0,
         age: null,
-        date_added: new Date().toISOString().split('T')[0],
+        /* date_added: new Date().toISOString().split('T')[0], */
+        /* date_added: new Date().toLocaleString("af-ZA", {timeZone:"America/Argentina/Buenos_Aires"}).split('')[0], */
+        /* date_added: new Date().toLocaleString("af-ZA", {timeZone:"America/Argentina/Buenos_Aires"}).replace(/\//g,'-').split('-').reverse().join('-'), */
+        date_added: new Date().toLocaleString({timeZone:"America/Argentina/Buenos_Aires"}).split(' ')[0].split('/').reverse().join('-'),
         race: 'Other'
       });
     });
@@ -63,9 +66,12 @@ describe('Character Routes', () => {
         const res = await request(app).get('/character');
         expect(res.statusCode).toBe(200);
         expect(res.body).toEqual([
-          {code: 'ONE', name: 'First', hp: 90.0, mana: 150.0, age: 27, date_added: new Date().toISOString().split('T')[0], race: 'Human'},
+          /* {code: 'ONE', name: 'First', hp: 90.0, mana: 150.0, age: 27, date_added: new Date().toISOString().split('T')[0], race: 'Human'},
           {code: 'TWO', name: 'Second', hp: 135.0, mana: 40.0, age: 20, date_added: new Date().toISOString().split('T')[0], race: 'Machine'},
-          {code: 'THREE', name: 'Third', hp: 110.0, mana: 110.0, age: 23, date_added: new Date().toISOString().split('T')[0], race: 'Human'}
+          {code: 'THREE', name: 'Third', hp: 110.0, mana: 110.0, age: 23, date_added: new Date().toISOString().split('T')[0], race: 'Human'} */
+          {code: 'ONE', name: 'First', hp: 90.0, mana: 150.0, age: 27, date_added: new Date().toLocaleString({timeZone:"America/Argentina/Buenos_Aires"}).split(' ')[0].split('/').reverse().join('-'), race: 'Human'},
+          {code: 'TWO', name: 'Second', hp: 135.0, mana: 40.0, age: 20, date_added: new Date().toLocaleString({timeZone:"America/Argentina/Buenos_Aires"}).split(' ')[0].split('/').reverse().join('-'), race: 'Machine'},
+          {code: 'THREE', name: 'Third', hp: 110.0, mana: 110.0, age: 23, date_added: new Date().toLocaleString({timeZone:"America/Argentina/Buenos_Aires"}).split(' ')[0].split('/').reverse().join('-'), race: 'Human'}
         ])
       })
   
@@ -98,7 +104,8 @@ describe('Character Routes', () => {
         const res = await request(app).get('/character/TWO');
         expect(res.statusCode).toBe(200);
         expect(res.body).toEqual(
-          {code: 'TWO', name: 'Second', hp: 135.0, mana: 40.0, age: 20, date_added: new Date().toISOString().split('T')[0], race: 'Machine'}
+          /* {code: 'TWO', name: 'Second', hp: 135.0, mana: 40.0, age: 20, date_added: new Date().toISOString().split('T')[0], race: 'Machine'} */
+          {code: 'TWO', name: 'Second', hp: 135.0, mana: 40.0, age: 20, date_added: new Date().toLocaleString({timeZone:"America/Argentina/Buenos_Aires"}).split(' ')[0].split('/').reverse().join('-'), race: 'Machine'}
         )
       })
     })

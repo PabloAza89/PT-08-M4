@@ -56,6 +56,24 @@ router.get('/', async (req, res) => {
 
 });
 
+router.get('/young', async (req, res) => {
+  //console.log("REQUEST", req)
+  
+  try {
+    const character = await Character.findAll({
+      where: {
+        age: {
+          [Op.lt]: 25,
+        }        
+      }
+    })
+    res.status(200).send(character)
+  }
+  catch(e) {
+    console.log("ERROR DE /YOUNG", e)  
+  }
+    
+});
 
 router.get('/:code', async (req, res) => {
   const { code } = req.params
@@ -64,20 +82,6 @@ router.get('/:code', async (req, res) => {
   res.json(character)
 });
 
-router.get('/young', async (req, res) => {
-  const conditionAge = age < 25;
-  try {
-    const character = await Character.findAll({
-      where: {
-        [attribute]: conditionAge
-      }
-    })
-    res.status(200).send(character)
-  }
-  catch(e) {
-    console.log(e)  
-  }
-    
-});
+
 
 module.exports = router;
