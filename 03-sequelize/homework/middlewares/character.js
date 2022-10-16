@@ -96,6 +96,24 @@ router.get('/:code', async (req, res) => {
   res.json(character)
 });
 
+router.put('/age/', async (req, res) => {
+  const { value } = req.query
+  console.log("PUT QUERY", value)
+  
+  try {
+    if (value) {
+      await Character.update({ age: value }, {
+        where: {
+          age: {[Op.is]: null}
+        }}
+      );
+      res.send('Personajes actualizados')
+    }
+  }
+  catch (e) {
+    console.log("ERROR EN PUT:AGE")
+  }
 
+});
 
 module.exports = router;
