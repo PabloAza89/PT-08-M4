@@ -16,13 +16,8 @@ module.exports = sequelize => {
       unique: 'composite_unique'
     },
     CharacterCode: {
-      type: DataTypes.VIRTUAL,
-      get() {
-        return {name: `${this.name}`, mana_cost: `${this.mana_cost}`};
-      },
-      set() {
-        throw new Error('Do not try to set the `fullName` value!');
-      }
+      type: DataTypes.STRING,
+      allowNull: false
     }
   }, {
     timestamps: false

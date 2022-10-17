@@ -28,7 +28,8 @@ describe('Character Routes', () => {
         /* date_added: new Date().toISOString().split('T')[0], */
         /* date_added: new Date().toLocaleString("af-ZA", {timeZone:"America/Argentina/Buenos_Aires"}).split('')[0], */
         /* date_added: new Date().toLocaleString("af-ZA", {timeZone:"America/Argentina/Buenos_Aires"}).replace(/\//g,'-').split('-').reverse().join('-'), */
-        date_added: new Date().toLocaleString({timeZone:"America/Argentina/Buenos_Aires"}).split(' ')[0].split('/').reverse().join('-'),
+        /* date_added: new Date().toLocaleString({timeZone:"America/Argentina/Buenos_Aires"}).split(' ')[0].split('/').reverse().join('-'), */
+        date_added: new Date().toLocaleString({timeZone:"America/Argentina/Buenos_Aires"}).split(' ')[0].split('/').reverse().join('-').split(",").join(""),
         race: 'Other'
       });
     });
@@ -69,9 +70,9 @@ describe('Character Routes', () => {
           /* {code: 'ONE', name: 'First', hp: 90.0, mana: 150.0, age: 27, date_added: new Date().toISOString().split('T')[0], race: 'Human'},
           {code: 'TWO', name: 'Second', hp: 135.0, mana: 40.0, age: 20, date_added: new Date().toISOString().split('T')[0], race: 'Machine'},
           {code: 'THREE', name: 'Third', hp: 110.0, mana: 110.0, age: 23, date_added: new Date().toISOString().split('T')[0], race: 'Human'} */
-          {code: 'ONE', name: 'First', hp: 90.0, mana: 150.0, age: 27 + ' years old', date_added: new Date().toLocaleString({timeZone:"America/Argentina/Buenos_Aires"}).split(' ')[0].split('/').reverse().join('-'), race: 'Human'},
-          {code: 'TWO', name: 'Second', hp: 135.0, mana: 40.0, age: 20 + ' years old', date_added: new Date().toLocaleString({timeZone:"America/Argentina/Buenos_Aires"}).split(' ')[0].split('/').reverse().join('-'), race: 'Machine'},
-          {code: 'THREE', name: 'Third', hp: 110.0, mana: 110.0, age: 23 + ' years old', date_added: new Date().toLocaleString({timeZone:"America/Argentina/Buenos_Aires"}).split(' ')[0].split('/').reverse().join('-'), race: 'Human'}
+          {code: 'ONE', name: 'First', hp: 90.0, mana: 150.0, age: 27 + ' years old', date_added: new Date().toLocaleString({timeZone:"America/Argentina/Buenos_Aires"}).split(' ')[0].split('/').reverse().join('-').split(",").join(""), race: 'Human'},
+          {code: 'TWO', name: 'Second', hp: 135.0, mana: 40.0, age: 20 + ' years old', date_added: new Date().toLocaleString({timeZone:"America/Argentina/Buenos_Aires"}).split(' ')[0].split('/').reverse().join('-').split(",").join(""), race: 'Machine'},
+          {code: 'THREE', name: 'Third', hp: 110.0, mana: 110.0, age: 23 + ' years old', date_added: new Date().toLocaleString({timeZone:"America/Argentina/Buenos_Aires"}).split(' ')[0].split('/').reverse().join('-').split(",").join(""), race: 'Human'}
         ])
       })
   
@@ -105,7 +106,9 @@ describe('Character Routes', () => {
         expect(res.statusCode).toBe(200);
         expect(res.body).toEqual(
           /* {code: 'TWO', name: 'Second', hp: 135.0, mana: 40.0, age: 20, date_added: new Date().toISOString().split('T')[0], race: 'Machine'} */
-          {code: 'TWO', name: 'Second', hp: 135.0, mana: 40.0, age: 20 + ' years old', date_added: new Date().toLocaleString({timeZone:"America/Argentina/Buenos_Aires"}).split(' ')[0].split('/').reverse().join('-'), race: 'Machine'}
+          /* {code: 'TWO', name: 'Second', hp: 135.0, mana: 40.0, age: 20 + ' years old', date_added: new Date().toLocaleString({timeZone:"America/Argentina/Buenos_Aires"}).split(' ')[0].split('/').reverse().join('-'), race: 'Machine'} */
+          {code: 'TWO', name: 'Second', hp: 135.0, mana: 40.0, age: 20 + ' years old', date_added: new Date().toLocaleString({timeZone:"America/Argentina/Buenos_Aires"}).split(' ')[0].split('/').reverse().join('-').split(",").join(""), race: 'Machine'}
+          
         )
       })
     })
@@ -165,7 +168,8 @@ describe('Character Routes', () => {
                     { name: 'abilityThree', mana_cost: 23.0 }
                   ]
                 });
-        const [results] = await db.query('SELECT name, mana_cost FROM "Abilities" WHERE "CharacterCode" = \'TWO\'');
+        /* const [results] = await db.query('SELECT name, mana_cost FROM "Abilities" WHERE "CharacterCode" = \'TWO\''); */
+        const [results] = await db.query('SELECT name, mana_cost FROM "Ability" WHERE "CharacterCode" = \'TWO\'');
         expect(results).toEqual(expect.arrayContaining([
           {name: 'abilityOne', mana_cost: 17.0},
           {name: 'abilityTwo', mana_cost: 84.0},
