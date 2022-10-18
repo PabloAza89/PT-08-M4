@@ -15,7 +15,9 @@ module.exports = sequelize => {
       type: DataTypes.INTEGER,
       get() {
         // return this.skill + ' points'; // Wrong!
-        return this.getDataValue('age') + ' years old';
+        /* return this.getDataValue('age') + ' years old'; */
+        let res = this.getDataValue('age')
+        return res ? res + ' years old' : null;
       }
     },
     race: {

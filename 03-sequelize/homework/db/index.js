@@ -19,10 +19,12 @@ modelRole(db);
 
 // added
 
-/* const { Character , Ability } = db.models;
+const { Character , Ability , Role } = db.models;
 
 Character.hasMany(Ability);
-Ability.belongsTo(Character); */
+Ability.belongsTo(Character);
+Character.belongsToMany(Role, { through: 'Character_Role' });
+Role.belongsToMany(Character, { through: 'Character_Role' });
 
 // added
 

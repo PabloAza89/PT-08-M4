@@ -169,7 +169,7 @@ describe('Character Routes', () => {
                   ]
                 });
         /* const [results] = await db.query('SELECT name, mana_cost FROM "Abilities" WHERE "CharacterCode" = \'TWO\''); */
-        const [results] = await db.query('SELECT name, mana_cost FROM "Ability" WHERE "CharacterCode" = \'TWO\'');
+        const [results] = await db.query('SELECT name, mana_cost FROM "Abilities" WHERE "CharacterCode" = \'TWO\'');
         expect(results).toEqual(expect.arrayContaining([
           {name: 'abilityOne', mana_cost: 17.0},
           {name: 'abilityTwo', mana_cost: 84.0},

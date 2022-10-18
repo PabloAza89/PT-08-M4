@@ -117,7 +117,7 @@ router.put('/age/', async (req, res) => {
 
 });
 
-router.get('/addAbilities/', async (req, res) => {
+/* router.get('/addAbilities/', async (req, res) => {
   const { codeCharacter , abilities } = req.body
   //console.log("A BUSCAR", abilities)
   
@@ -130,6 +130,6 @@ router.get('/addAbilities/', async (req, res) => {
     console.log("ERROR EN ADD ABILITES")
   }
 
-});
+}); */
 
 module.exports = router;
