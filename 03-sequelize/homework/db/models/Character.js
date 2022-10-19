@@ -4,12 +4,15 @@ module.exports = sequelize => {
   sequelize.define('Character', {
     code: {      
       type: DataTypes.STRING(5),
-      primaryKey: true  
+      primaryKey: true
     },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      validate: {
+        notIn: [['Henry', 'SoyHenry', 'Soy Henry']]
+      }
     },
     age: {
       type: DataTypes.INTEGER,

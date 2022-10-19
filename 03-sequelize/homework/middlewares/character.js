@@ -130,6 +130,6 @@ router.put('/age/', async (req, res) => {
     console.log("ERROR EN ADD ABILITES")
   }
 
-}); */
+  }); */
 
 module.exports = router;
