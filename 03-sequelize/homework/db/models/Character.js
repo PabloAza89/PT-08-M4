@@ -4,7 +4,10 @@ module.exports = sequelize => {
   sequelize.define('Character', {
     code: {      
       type: DataTypes.STRING(5),
-      primaryKey: true
+      primaryKey: true,
+      validate: {
+        not: /[Hh][Ee][Nn][Rr][Yy]/,
+      }
     },
     name: {
       type: DataTypes.STRING,

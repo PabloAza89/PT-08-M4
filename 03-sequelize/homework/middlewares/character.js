@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const express = require('express');
 const { where } = require('sequelize');
-const { Op, Character, Role , Ability , db } = require('../db');
+const { Op, Character, Role , db } = require('../db');
 const router = Router();
 
 router.post('/', async (req, res) => {
@@ -97,7 +97,7 @@ router.get('/:code', async (req, res) => {
   res.json(character)
 });
 
-router.put('/age/', async (req, res) => {
+/* router.put('/age/', async (req, res) => {
   const { value } = req.query
   //console.log("PUT QUERY", value)
   
@@ -115,21 +115,37 @@ router.put('/age/', async (req, res) => {
     console.log("ERROR EN PUT:AGE")
   }
 
-});
+}); */
 
-/* router.get('/addAbilities/', async (req, res) => {
-  const { codeCharacter , abilities } = req.body
-  //console.log("A BUSCAR", abilities)
+router.put('/:attribute', async (req, res) => {
+  const { value } = req.query
+  const { attribute } = req.params
+
+/*   console.log("QUERY", value)
+  console.log("ATTRIBUTE", attribute) */
   
   try {
-    const character = await db.findByPk(code)
-    res.send(character)
-    
+    if (value && attribute === "age") {
+      await Character.update({ age: value }, {
+        where: {
+          age: {[Op.is]: null}
+        }}
+      );
+      res.send('Personajes actualizados')
+    }
+    if (!value && attribute === "addAbilities") {
+      await Character.update({ age: value }, {
+        where: {
+          age: {[Op.is]: null}
+        }}
+      );
+      res.send('Personajes actualizados')
+    }
   }
   catch (e) {
-    console.log("ERROR EN ADD ABILITES")
+    console.log("ERROR EN PUT:AGE")
   }
 
-  }); */
+});
 
 module.exports = router;

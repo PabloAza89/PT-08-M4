@@ -24,7 +24,7 @@ describe('Character Routes', () => {
         name: 'Franco',
         hp: 100.0,
         mana: 120.0,
-        age: null + ' years old',
+        age: null,
         /* date_added: new Date().toISOString().split('T')[0], */
         /* date_added: new Date().toLocaleString("af-ZA", {timeZone:"America/Argentina/Buenos_Aires"}).split('')[0], */
         /* date_added: new Date().toLocaleString("af-ZA", {timeZone:"America/Argentina/Buenos_Aires"}).replace(/\//g,'-').split('-').reverse().join('-'), */
