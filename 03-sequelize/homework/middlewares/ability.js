@@ -22,15 +22,13 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.put('/:setCharacter/', async (req, res) => {
-  const { setCharacter } = req.params
-  //console.log("AA", setCharacter);
+router.put('/setCharacter', async (req, res) => {
+  const { idAbility , codeCharacter } = req.body
+  //console.log("AA", codeCharacter, "BB" , idAbility);
 
   try {
-    if (setCharacter) {
-      const newAbylity = await Ability.create(req.body);
-      return res.status(201).json(newAbylity);
-    }
+    let ability = await Ability.findByPk(idAbility)
+    
   } catch (e) {
     return res.status(404).send("Falta enviar datos obligatorios");
   } 
