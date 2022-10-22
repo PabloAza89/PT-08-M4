@@ -28,9 +28,13 @@ router.put('/setCharacter', async (req, res) => {
 
   try {
     let ability = await Ability.findByPk(idAbility)
-    
+    await ability.setCharacter(codeCharacter)
+    let result = await Ability.findByPk(idAbility, {
+      attributes: ['name', 'description', 'mana_cost', 'CharacterCode']
+    });
+    res.status(201).json(result)
   } catch (e) {
-    return res.status(404).send("Falta enviar datos obligatorios");
+    console.log(e)    
   } 
 });  
 

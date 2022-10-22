@@ -97,25 +97,23 @@ router.get('/:code', async (req, res) => {
   res.json(character)
 });
 
-/* router.put('/age/', async (req, res) => {
-  const { value } = req.query
-  //console.log("PUT QUERY", value)
-  
-  try {
-    if (value) {
-      await Character.update({ age: value }, {
-        where: {
-          age: {[Op.is]: null}
-        }}
-      );
-      res.send('Personajes actualizados')
-    }
-  }
-  catch (e) {
-    console.log("ERROR EN PUT:AGE")
-  }
+router.get('/roles/:code', async (req, res) => {
+  const { code } = req.params
+  const character = await Character.findByPk(code, {
+    include: Role
+  })
+  res.json(character)  
+})
 
-}); */
+router.put('/addAbilities', async (req, res) => {
+  const { codeCharacter , abilities } = req.body
+  let character = await Character.findByPk(codeCharacter)
+  let abilitiesArray = abilities.map(el => character.createAbility(el))
+  await Promise.all(abilitiesArray)
+  res.status(201).json(character)
+
+})
+
 
 router.put('/:attribute', async (req, res) => {
   const { value } = req.query
